@@ -46,8 +46,8 @@ filetype indent on
 set autoread
 set autoindent
 set smartindent
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 set expandtab "2 backspace to replace a tab
 set colorcolumn=121
 
@@ -64,9 +64,6 @@ set maxmempattern=5000
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-
-" 定义快捷键的前缀,即<Leader>
-let mapleader=";"
 
 " 插件开始的位置
 call plug#begin('~/.plugged')
@@ -124,6 +121,8 @@ Plug 'acarapetis/vim-colors-github'
 Plug 'rakr/vim-one'
 " colorscheme codedark
 Plug 'tomasiser/vim-code-dark'
+
+Plug 'kevinoid/vim-jsonc'
 
 " 插件结束的位置,插件全部放在此行上面
 call plug#end()
@@ -197,4 +196,13 @@ map <silent> <F6> <Plug>StopMarkdownPreview
 
 hi comment ctermfg=6  " comment color
 
+" 兼容 ctags 的跳转方式
+map <C-]> gd
+
+" 设置默认 shell 使用 zsh，而不是 bash
 set shell=/bin/zsh
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" kevinoid/vim-jsonc plugin
+autocmd FileType json syntax match Comment +\/\/.\+$+
